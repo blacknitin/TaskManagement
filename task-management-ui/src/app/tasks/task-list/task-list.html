@@ -1,0 +1,83 @@
+<div class="dashboard-container">
+  <header>
+    <h2>🚀 My Workspace</h2>
+    <p>Manage your daily goals efficiently.</p>
+  </header>
+<div class="input-card">
+  <div class="search-bar">
+    <input
+      type="text"
+      placeholder="Search tasks..."
+      [(ngModel)]="searchText"
+      (input)="searchTasks()"
+    />
+</div>
+  
+
+  </div>
+  <div class="input-card">
+    <div class="input-group">
+
+      <input
+        placeholder="Task Title..."
+        [(ngModel)]="task.taskTitle"
+      />
+
+      <input
+        placeholder="What needs to be done?"
+        [(ngModel)]="task.taskDescription"
+      />
+      <input
+        type="date"
+        [(ngModel)]="task.taskDueDate"
+      />
+
+      <input
+        placeholder="Remarks / Notes..."
+        [(ngModel)]="task.taskRemarks"
+      />
+
+      <select *ngIf="editing" [(ngModel)]="task.taskStatus">
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+
+    </div>
+
+    <div class="action-row">
+      <button class="btn-primary" *ngIf="!editing" (click)="saveTask()">
+        + Add Task
+      </button>
+
+      <button class="btn-update" *ngIf="editing" (click)="updateTask()">
+        ✓ Save Changes
+      </button>
+
+      <button class="btn-cancel" *ngIf="editing" (click)="cancelEdit()">
+        ✕ Cancel
+      </button>
+    </div>
+  </div>
+
+  <div class="task-grid">
+    <div class="task-card" *ngFor="let t of tasks">
+      <div class="card-content">
+        <h3>{{ t.taskTitle }}</h3>
+        <p>{{ t.taskDescription }}</p>
+
+        <p><strong>Due:</strong> {{ t.taskDueDate | date:'mediumDate' }}</p>
+        <p><strong>Status:</strong> {{ t.taskStatus }}</p>
+
+        <p *ngIf="t.taskRemarks">
+          <strong>Remarks:</strong> {{ t.taskRemarks }}
+        </p>
+      </div>
+
+      <div class="card-actions">
+        <button class="icon-btn edit" (click)="editTask(t)">Edit</button>
+        <button class="icon-btn delete" (click)="deleteTask(t.taskId!)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

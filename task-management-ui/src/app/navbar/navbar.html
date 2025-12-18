@@ -1,0 +1,21 @@
+<nav class="navbar">
+  <div class="container">
+    <div class="logo">
+      <a routerLink="/">
+        <span class="icon">☑</span> TaskManager
+      </a>
+    </div>
+
+    <ul class="nav-links">
+      <ng-container *ngIf="isLoggedIn">
+        <li><a routerLink="/tasks" routerLinkActive="active">My Tasks</a></li>
+        <li><button class="btn-logout" (click)="logout()">Logout</button></li>
+      </ng-container>
+
+      <ng-container *ngIf="!isLoggedIn">
+        <li><a routerLink="/login" routerLinkActive="active">Login</a></li>
+        <li><a routerLink="/register" class="btn-register">Get Started</a></li>
+      </ng-container>
+    </ul>
+  </div>
+</nav>
